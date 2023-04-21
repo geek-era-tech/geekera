@@ -4,12 +4,26 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-tokio = { version = "1.27.0", features = ["full"] }
+# 异步
+tokio = { version = "1.27.0", features = ["full"], optional = true }
+# 序列化
 serde = { version = "1.0.160", default-features = false, features = ["derive"] }
+# 错误
 anyhow = { version = "1.0.70" }
+# 数据库
+sea-orm = { version = "0.11.2", optional = true }
+# 配置
+config = { version = "0.13.3", optional = true }
 
 [features]
 default = [
-    "runtime"
+    "runtime",
+    "database",
+    "config",
 ]
-runtime = []
+# 异步
+runtime = ["dep:tokio"]
+# 数据库
+database = ["dep:sea-orm"]
+# 配置
+config = ["dep:config"]
